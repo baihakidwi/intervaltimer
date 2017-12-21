@@ -148,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-
         setContentView(R.layout.activity_main);
         mSpnrTaskList = findViewById(R.id.spnr_main_tasklist);
         mLsvTaskDetails = findViewById(R.id.lsv_main_taskdetails);
@@ -333,7 +332,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setBtnStartBackground() {
-
         switch (mState) {
             case RUN:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
