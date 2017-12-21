@@ -1,19 +1,19 @@
 package com.blogspot.bihaika.android.intervaltimer;
 
-import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -231,15 +231,36 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+//    private void createTask() {
+//        final Dialog dialog = new Dialog(this, R.style.Dialog);
+//        dialog.setContentView(R.layout.dialog_createtask);
+//        dialog.setTitle(R.string.create_dialog_title);
+//        final EditText edtTaskName = dialog.findViewById(R.id.edt_dialogcreate);
+//        Button btnCreate = dialog.findViewById(R.id.btn_dialogcreate);
+//        btnCreate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                stop();
+//                String taskName = edtTaskName.getText().toString();
+//                if (!taskName.equals("")) {
+//                    DataManager.getInstance(MainActivity.this).createTask(taskName);
+//                    mSpnrTaskList.setSelection(
+//                            DataManager.getInstance(MainActivity.this).getTaskList().size());
+//                }
+//                dialog.dismiss();
+//            }
+//        });
+//        dialog.show();
+//    }
+
     private void createTask() {
-        final Dialog dialog = new Dialog(this, R.style.Dialog);
-        dialog.setContentView(R.layout.dialog_createtask);
-        dialog.setTitle(R.string.create_dialog_title);
-        final EditText edtTaskName = dialog.findViewById(R.id.edt_dialogcreate);
-        Button btnCreate = dialog.findViewById(R.id.btn_dialogcreate);
-        btnCreate.setOnClickListener(new View.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(R.layout.dialog_createtask_nobutton);
+        builder.setTitle(R.string.create_dialog_title);
+        builder.setPositiveButton(R.string.create_dialog_button, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
+                TextView edtTaskName = ((AlertDialog) dialog).findViewById(R.id.edt_dialogcreate);
                 stop();
                 String taskName = edtTaskName.getText().toString();
                 if (!taskName.equals("")) {
@@ -250,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        dialog.show();
+        builder.create().show();
     }
 
     private void delete() {

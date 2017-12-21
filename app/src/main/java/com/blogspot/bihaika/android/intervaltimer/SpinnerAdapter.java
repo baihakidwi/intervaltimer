@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Baihaki Dwi on 21/12/2017.
@@ -18,7 +17,7 @@ import java.util.List;
 
 class SpinnerAdapter extends ArrayAdapter<Task> {
 
-    private ArrayList<Task> mTaskList;
+    private final ArrayList<Task> mTaskList;
     private final LayoutInflater mLayoutInflater;
 
     public SpinnerAdapter(@NonNull Context context) {

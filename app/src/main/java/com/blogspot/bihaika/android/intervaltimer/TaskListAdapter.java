@@ -1,18 +1,18 @@
 package com.blogspot.bihaika.android.intervaltimer;
 
-import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
@@ -98,6 +98,7 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         if (mIndexRun <= -1 || mIndexRun >= getCount() - 1) {
             mIndexRun = 0;
         }
+        mMainActivity.setListViewFocus(mIndexRun);
         notifyDataSetChanged();
     }
 
@@ -182,19 +183,88 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
         return convertView;
     }
 
+//    private void showTimerDialog(final Task task) {
+//        final Dialog dialog = new Dialog(getContext(), R.style.Dialog);
+//        if (task != null) {
+//            dialog.setTitle(R.string.edit_dialog_title);
+//            dialog.setContentView(R.layout.dialog_edittimer);
+//        } else {
+//            dialog.setTitle(R.string.add_dialog_title);
+//            dialog.setContentView(R.layout.dialog_addtimer);
+//        }
+//        final EditText editText = dialog.findViewById(R.id.edt_dialogadd);
+//        final NumberPicker pickerHour = dialog.findViewById(R.id.picker_dialogadd_hour);
+//        final NumberPicker pickerMinute = dialog.findViewById(R.id.picker_dialogadd_minute);
+//        final NumberPicker pickerSecond = dialog.findViewById(R.id.picker_dialogadd_second);
+//        setNumberPickerRange(pickerHour, 23);
+//        setNumberPickerRange(pickerMinute, 59);
+//        setNumberPickerRange(pickerSecond, 59);
+//        if (task != null) {
+//            editText.setText(task.getTaskName());
+//            long hour, minute, second;
+//            hour = (task.getTaskTime() / HOUR) % 24;
+//            minute = (task.getTaskTime() / MINUTE) % 60;
+//            second = (task.getTaskTime() / SECOND) % 60;
+//            pickerHour.setValue((int) hour);
+//            pickerMinute.setValue((int) minute);
+//            pickerSecond.setValue((int) second);
+//        }
+//        Button button = dialog.findViewById(R.id.btn_dialogadd);
+//
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String timerName = editText.getText().toString();
+//                if (timerName.equals("")) {
+//                    timerName = getContext().getString(R.string.timername_dialog_hint);
+//                }
+//                int hour = pickerHour.getValue();
+//                int minute = pickerMinute.getValue();
+//                int second = pickerSecond.getValue();
+//                long time = second * SECOND
+//                        + minute * MINUTE
+//                        + hour * HOUR;
+//                if (time == 0) {
+//                    time = 20;
+//                }
+//                if (task != null) {
+//                    task.setTaskName(timerName)
+//                            .setTaskTime(time);
+//                    DataManager.getInstance(getContext()).save();
+//                } else {
+//                    Task task = new Task()
+//                            .setTaskId(System.currentTimeMillis())
+//                            .setTaskName(timerName)
+//                            .setTaskTime(time);
+//
+//                    mTask.addTaskDetail(task);
+//                    DataManager.getInstance(getContext()).save();
+//                }
+//
+//                notifyDataSetChanged();
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        dialog.show();
+//    }
+
     private void showTimerDialog(final Task task) {
-        final Dialog dialog = new Dialog(getContext(), R.style.Dialog);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout;
         if (task != null) {
-            dialog.setTitle(R.string.edit_dialog_title);
-            dialog.setContentView(R.layout.dialog_edittimer);
+            builder.setTitle(R.string.edit_dialog_title);
+            layout = inflater.inflate(R.layout.dialog_edittimer_nobutton, null);
         } else {
-            dialog.setTitle(R.string.add_dialog_title);
-            dialog.setContentView(R.layout.dialog_addtimer);
+            builder.setTitle(R.string.add_dialog_title);
+            layout = inflater.inflate(R.layout.dialog_addtimer_nobutton, null);
         }
-        final EditText editText = dialog.findViewById(R.id.edt_dialogadd);
-        final NumberPicker pickerHour = dialog.findViewById(R.id.picker_dialogadd_hour);
-        final NumberPicker pickerMinute = dialog.findViewById(R.id.picker_dialogadd_minute);
-        final NumberPicker pickerSecond = dialog.findViewById(R.id.picker_dialogadd_second);
+
+        final EditText editText = layout.findViewById(R.id.edt_dialogadd);
+        final NumberPicker pickerHour = layout.findViewById(R.id.picker_dialogadd_hour);
+        final NumberPicker pickerMinute = layout.findViewById(R.id.picker_dialogadd_minute);
+        final NumberPicker pickerSecond = layout.findViewById(R.id.picker_dialogadd_second);
         setNumberPickerRange(pickerHour, 23);
         setNumberPickerRange(pickerMinute, 59);
         setNumberPickerRange(pickerSecond, 59);
@@ -208,11 +278,11 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
             pickerMinute.setValue((int) minute);
             pickerSecond.setValue((int) second);
         }
-        Button button = dialog.findViewById(R.id.btn_dialogadd);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        builder.setView(layout);
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
                 String timerName = editText.getText().toString();
                 if (timerName.equals("")) {
                     timerName = getContext().getString(R.string.timername_dialog_hint);
@@ -241,11 +311,15 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
                 }
 
                 notifyDataSetChanged();
-                dialog.dismiss();
             }
-        });
+        };
+        if (task != null) {
+            builder.setPositiveButton(R.string.edit_dialog_button, listener);
+        } else {
+            builder.setPositiveButton(R.string.add_dialog_button, listener);
+        }
+        builder.create().show();
 
-        dialog.show();
     }
 
     private void setCountDownTimer(final Task task) {
@@ -281,6 +355,7 @@ public class TaskListAdapter extends ArrayAdapter<Task> {
                 if (mIndexRun == getCount() - 1) {
                     if (mRepeat) {
                         mIndexRun = 0;
+                        mMainActivity.setListViewFocus(mIndexRun);
                     } else {
                         mMainActivity.stop();
                         mRemainingTime = 0;
