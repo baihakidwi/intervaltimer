@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_sound"
+        android:checkable="true"
+        android:title="@string/sound_menu" />
+    <item
+        android:id="@+id/menu_vibrate"
+        android:checkable="true"
+        android:title="@string/vibrate_menu" />
+    <item
+        android:id="@+id/menu_repeat"
+        android:checkable="true"
+        android:title="@string/repeat_menu" />
+</menu>

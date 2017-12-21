@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="@dimen/space_medium">
+
+    <ImageButton
+        android:id="@+id/btn_listviewitem_add"
+        android:layout_width="@dimen/button_medium"
+        android:layout_height="@dimen/button_medium"
+        android:background="@android:drawable/ic_menu_add"
+        android:contentDescription="@string/add_button" />
+
+</LinearLayout>

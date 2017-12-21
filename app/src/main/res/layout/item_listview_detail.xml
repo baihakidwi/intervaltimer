@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/txv_listviewitem_title"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/space_medium"
+        android:layout_marginRight="@dimen/space_large"
+        android:layout_weight="1"
+        android:padding="@dimen/space_medium"
+        android:text="sample text" />
+
+    <TextView
+        android:id="@+id/txv_listviewitem_time"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/space_large"
+        android:padding="@dimen/space_medium"
+        android:text="0:00:00.00" />
+
+    <ImageButton
+        android:id="@+id/btn_listviewitem_edit"
+        android:layout_width="@dimen/button_medium"
+        android:layout_height="@dimen/button_medium"
+        android:layout_marginRight="@dimen/space_medium"
+        android:background="@android:drawable/ic_menu_edit"
+        android:contentDescription="@string/edit_button" />
+
+    <ImageButton
+        android:id="@+id/btn_listviewitem_delete"
+        android:layout_width="@dimen/button_medium"
+        android:layout_height="@dimen/button_medium"
+        android:layout_marginRight="@dimen/button_small"
+        android:background="@android:drawable/ic_menu_delete"
+        android:contentDescription="@string/delete_button" />
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/space_medium">
+
+    <TextView
+        android:id="@+id/txv_listviewrun_title"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_small"
+        android:padding="@dimen/space_small"
+        android:text="sample text" />
+
+    <TextView
+        android:id="@+id/txv_listviewrun_time"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_medium"
+        android:padding="@dimen/space_small"
+        android:text="0:00:00.00"
+        android:textStyle="bold" />
+</LinearLayout>

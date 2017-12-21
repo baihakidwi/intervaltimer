@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Interval Timer</string>
+
+    <string name="start_button">Start</string>
+    <string name="reset_button">Reset</string>
+    <string name="edit_button">Edit Timer</string>
+    <string name="delete_button">Delete</string>
+    <string name="delete_task">Delete task</string>
+    <string name="add_button">Add timer</string>
+    <string name="create_dialog_title">Create Task</string>
+    <string name="add_dialog_title">Add Timer</string>
+    <string name="edit_dialog_title">Edit Timer</string>
+    <string name="create_dialog_button">Create</string>
+    <string name="add_dialog_button">Add</string>
+    <string name="edit_dialog_button">Save</string>
+    <string name="taskname_dialog_hint">Task name</string>
+    <string name="timername_dialog_hint">Timer name</string>
+    <string name="save_file">save_file.xml</string>
+    <string name="sound_menu">Sound</string>
+    <string name="vibrate_menu">Vibrate</string>
+    <string name="repeat_menu">Repeat</string>
+
+    <string name="sound_preferences">bihaika.sound</string>
+    <string name="vibrate_preferences">bihaika.vibrate</string>
+    <string name="repeat_preferences">bihaika.repeat</string>
+    <string name="preference_file_key">bihaika.preference_file_key</string>
+
+    <string name="param_spinnerindex">bihaika.spinnerindex</string>
+    <string name="param_listviewindex">bihaika.listviewindex</string>
+    <string name="param_remainingtime">bihaika.remainingtime</string>
+    <string name="param_state">bihaika.state</string>
+</resources>
