@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -230,28 +231,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    private void createTask() {
-//        final Dialog dialog = new Dialog(this, R.style.Dialog);
-//        dialog.setContentView(R.layout.dialog_createtask);
-//        dialog.setTitle(R.string.create_dialog_title);
-//        final EditText edtTaskName = dialog.findViewById(R.id.edt_dialogcreate);
-//        Button btnCreate = dialog.findViewById(R.id.btn_dialogcreate);
-//        btnCreate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                stop();
-//                String taskName = edtTaskName.getText().toString();
-//                if (!taskName.equals("")) {
-//                    DataManager.getInstance(MainActivity.this).createTask(taskName);
-//                    mSpnrTaskList.setSelection(
-//                            DataManager.getInstance(MainActivity.this).getTaskList().size());
-//                }
-//                dialog.dismiss();
-//            }
-//        });
-//        dialog.show();
-//    }
-
     private void createTask() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(R.layout.dialog_createtask_nobutton);
@@ -289,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void start() {
-
         if (mSpinnerIndex != 0 && mSpinnerIndex != mSpinnerAdapter.getCount() - 1) {
             switch (mState) {
                 case RUN:
@@ -297,6 +275,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case STOP:
                 case PAUSED:
+                    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    mLsvTaskDetails.setEnabled(false);
                     mState = IntervalTimerState.RUN;
                     mTaskListAdapter.start();
                     break;
@@ -307,7 +287,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stop() {
-
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        mLsvTaskDetails.setEnabled(true);
         mState = IntervalTimerState.STOP;
         if (mTaskListAdapter != null) {
             mTaskListAdapter.stop();
@@ -320,7 +301,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pause() {
-
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        mLsvTaskDetails.setEnabled(true);
         if (mTaskListAdapter != null) {
             mState = IntervalTimerState.PAUSED;
             mTaskListAdapter.pause();
